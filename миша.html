@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Миша, Кирилл и кошечка Люся | Семейная история</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fef7e0 0%, #f9efcf 100%);
+            font-family: 'Segoe UI', 'Quicksand', 'Nunito', system-ui, -apple-system, 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding: 1.8rem;
+            position: relative;
+        }
+
+        /* фоновые одуванчики (лёгкие акценты) */
+        body::before {
+            content: "🌼🌼🌼";
+            font-size: 140px;
+            position: fixed;
+            bottom: 10px;
+            right: -30px;
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(-15deg);
+            white-space: pre;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "🐱🐱";
+            font-size: 110px;
+            position: fixed;
+            top: 20px;
+            left: -20px;
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(10deg);
+            z-index: 0;
+        }
+
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* главная карточка-контейнер */
+        .family-card {
+            background: rgba(255, 252, 240, 0.92);
+            backdrop-filter: blur(3px);
+            border-radius: 4rem;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 140, 0.7);
+            transition: all 0.2s;
+        }
+
+        .content-inner {
+            padding: 2rem 2rem 2.2rem;
+        }
+
+        /* шапка с котятами-одуванчиками */
+        .dandelion-header {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .cat-dandelion {
+            background: #fff9ea;
+            border-radius: 100px;
+            padding: 0.3rem 0.9rem;
+            font-size: 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            border: 1px solid #ffdeae;
+        }
+
+        .cat-dandelion span {
+            font-size: 2rem;
+        }
+
+        .badge {
+            text-align: center;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .badge span {
+            background: #ffe5bf;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #b2642c;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+
+        /* три колонки: Миша, Кирилл, Люся */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 2rem 0 2rem;
+        }
+
+        .member-card {
+            flex: 1;
+            min-width: 260px;
+            background: #ffffffea;
+            border-radius: 2.5rem;
+            padding: 1.6rem 1.2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 16px 24px -10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ffe0b5;
+            backdrop-filter: blur(2px);
+        }
+
+        .member-card:hover {
+            transform: translateY(-6px);
+            background: white;
+            border-color: #f9bc7c;
+            box-shadow: 0 25px 28px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        .avatar-icon {
+            font-size: 4.5rem;
+            filter: drop-shadow(2px 6px 10px rgba(0, 0, 0, 0.1));
+            margin-bottom: 0.25rem;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c17442, #aa643a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.3rem 0 0.2rem;
+        }
+
+        .age {
+            font-weight: 600;
+            color: #cc8b64;
+            background: #fff4ea;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .talent {
+            font-size: 1rem;
+            line-height: 1.45;
+            color: #4a3222;
+            font-weight: 500;
+            margin: 0.6rem 0;
+            background: #fef7e8;
+            padding: 0.5rem;
+            border-radius: 1.5rem;
+        }
+
+        .dream {
+            background: #f9efdf;
+            border-radius: 2rem;
+            padding: 0.5rem 0.8rem;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #bc6f3c;
+        }
+
+        .power-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #faeedc;
+            border-radius: 40px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ad693f;
+            margin: 0.3rem;
+        }
+
+        /* кошка Люся с одуванчиками на голове */
+        .cat-special {
+            border-bottom: 3px solid #ffcd94;
+        }
+
+        /* общая фраза про дружбу */
+        .together-moment {
+            background: #fdeedc;
+            border-radius: 2.5rem;
+            padding: 1.2rem 1.2rem;
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+            border: 1px solid #fbdead;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .quote {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #9b5e38;
+            background: #fff7e8;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* маленькие иконки одуванчиков */
+        .dandy-deco {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #bb8b63;
+            border-top: 1px dashed #ffdbb0;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 780px) {
+            .content-inner {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            .quote {
+                font-size: 1.1rem;
+            }
+            .avatar-icon {
+                font-size: 3.6rem;
+            }
+        }
+        @media (max-width: 550px) {
+            .team-grid {
+                gap: 1rem;
+            }
+            .member-card {
+                min-width: 220px;
+            }
+        }
+
+        /* маленькая анимация для одуванчиков */
+        @keyframes floatFluff {
+            0% { transform: translateY(0px) rotate(0deg);}
+            50% { transform: translateY(-3px) rotate(2deg);}
+            100% { transform: translateY(0px) rotate(0deg);}
+        }
+        .dandy-fluff {
+            display: inline-block;
+            animation: floatFluff 3s infinite ease;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="family-card">
+        <div class="content-inner">
+            <!-- дизайн: котята с одуванчиками на голове — шапка -->
+            <div class="dandelion-header">
+                <div class="cat-dandelion">
+                    <span>🐱</span>
+                    <span class="dandy-fluff">🌼🌾</span>
+                    <span>😺</span>
+                </div>
+                <div class="cat-dandelion">
+                    <span>🐈⬛</span>
+                    <span class="dandy-fluff">🌼🌸</span>
+                    <span>🐾</span>
+                </div>
+            </div>
+            <div class="badge">
+                <span>✨ лапки, одуванчики и уют ✨</span>
+            </div>
+
+            <!-- три героя: Миша, Кирилл, кошечка Люся -->
+            <div class="team-grid">
+                <!-- Ребёнок Миша -->
+                <div class="member-card">
+                    <div class="avatar-icon">🚴‍♂️🧸✨</div>
+                    <h2>Миша</h2>
+                    <div class="age">👦 9 лет</div>
+                    <div class="talent">
+                        🌟 обожает приключения, гонки на самокате и собирать конструктор
+                    </div>
+                    <div class="dream">
+                        💜 Мечта: <strong>новый фиолетовый велосипед</strong> 💜
+                    </div>
+                    <div class="power-badge">⭐️ лучший брат на свете</div>
+                </div>
+
+                <!-- Братик Кирилл -->
+                <div class="member-card">
+                    <div class="avatar-icon">🍳🎨🖌️</div>
+                    <h2>Кирилл</h2>
+                    <div class="age">👦 братик (чуть младше)</div>
+                    <div class="talent">
+                        🧑‍🍳✨ суперспособность: <strong>готовить вкусняшки</strong> и <strong>рисовать на графическом планшете</strong>
+                    </div>
+                    <div class="dream">
+                        🖼️ создаёт комиксы и фирменные пирожные
+                    </div>
+                    <div class="power-badge">🎨 иллюстратор-невидимка 🍪</div>
+                </div>
+
+                <!-- Кошечка Люся (серый в полосочку коричневую) -->
+                <div class="member-card cat-special">
+                    <div class="avatar-icon">🐈🍃🐾</div>
+                    <h2>Люся</h2>
+                    <div class="age">🐱 7 лет | окрас: серый в полосочку коричневую</div>
+                    <div class="talent">
+                        😴🍽️🌿 суперспособности: <strong>кушать, спать, есть домашние цветы и прятаться</strong>
+                    </div>
+                    <div class="dream">
+                        🌼 обожает одуванчики (и грызть их!) и спать на тёплом планшете
+                    </div>
+                    <div class="power-badge">🐚 профессиональный хрустун листьев</div>
+                </div>
+            </div>
+
+            <!-- Одуванчиковая лента + котятки на голове (визуальный акцент) -->
+            <div class="dandy-deco">
+                <span>🐱🌼</span>
+                <span>🐈🌼</span>
+                <span>🐱🌾</span>
+                <span>🐈🌼</span>
+                <span>🐱🌻</span>
+            </div>
+
+            <!-- тёплая фраза о семье (однострочный посыл о детях и братике) -->
+            <div class="together-moment">
+                <span class="quote">«Миша, Кирилл и Люся — одна команда пушистых приключений! 🐾💫»</span>
+                <span>🧡✨</span>
+            </div>
+
+            <!-- мини-история, которая объединяет всех -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 0.5rem;">
+                <div style="background: #fff6e6; border-radius: 30px; padding: 0.4rem 1rem; font-size: 0.85rem;">
+                    🚴 Миша мечтает о фиолетовом велосипеде, чтобы катать и брата, и Люсю в корзинке
+                </div>
+                <div style="background: #fff6e6; border-radius: 30px; padding: 0.4rem 1rem; font-size: 0.85rem;">
+                    🎨 Кирилл рисует комиксы про суперкошку Люсю, которая ест цветы и прячет тапки
+                </div>
+                <div style="background: #fff6e6; border-radius: 30px; padding: 0.4rem 1rem; font-size: 0.85rem;">
+                    🐈 Люся спит на рисунках Кирилла и ждёт, когда Миша принесёт одуванчик
+                </div>
+            </div>
+
+            <!-- ещё одуванчиков котятам на голову (декоративные картинки) -->
+            <div class="dandy-deco" style="margin-top: 1rem;">
+                <span class="dandy-fluff">🌼🐱🌼</span>
+                <span class="dandy-fluff">🌾🐈🌾</span>
+                <span class="dandy-fluff">🌸🐱🌸</span>
+            </div>
+
+            <div class="footer-note">
+                <span>🐾 каждый день с братиком и кошкой — волшебство 🐾</span>
+                <span>🌼 одуванчики на память 🌼</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
